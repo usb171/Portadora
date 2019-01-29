@@ -11,8 +11,7 @@ var connection = new RTCMultiConnection();
 
 connection.socketURL = 'https://sputnikcv.ddns.net/';
 connection.socketMessageEvent = 'multi-broadcasters-demo';
-//connection.userid = $("#id_RX_h1").attr('usuario') + "RX";
-
+connection.userid = $("#id_RX_h1").attr('nomeUsuario');;
 
 
 connection.session = {
