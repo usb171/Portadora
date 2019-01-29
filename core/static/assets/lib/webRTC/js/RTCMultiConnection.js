@@ -5852,7 +5852,9 @@ window.RTCMultiConnection = function(roomid, forceOptions) {
             if (!connection.enableLogs || !connection.isInitiator) return;
             console.info('Number of broadcast (', event.broadcastId, ') viewers', event.numberOfBroadcastViewers);
         };
-        var listaUsuario = [""]
+
+        var listaUsuario = JSON.parse('{}');
+
         connection.onUserStatusChanged = function(event, dontWriteLogs) {
             if (!!connection.enableLogs && !dontWriteLogs){
 
@@ -5860,15 +5862,15 @@ window.RTCMultiConnection = function(roomid, forceOptions) {
                 if(event.status == "online"){
                     $("#id_div_meter").prop('hidden', false);
                     $("#id_h1").text($("#id_h1").attr('usuario') + " -> " + $("#id_h1").attr('nomeSala'));
-                    listaUsuario.push(event.userid);
+                    listaUsuario[event.userid] = event.userid
                     console.log(listaUsuario);
                 }else{
-                    if(listaUsuario.length == 0){
+                    if(Object.keys(listaUsuario).length == 0){
                         $("#id_div_meter").prop('hidden', true);
                         $("#id_h1").text($("#id_h1").attr('usuario') + " -> offline");
                     }
-                    listaUsuario.pop();
-                    console.log(listaUsuario.length);
+                    delete listaUsuario[event.userid]
+                    console.log(listaUsuario);
                 }
 
             }
