@@ -8,11 +8,17 @@
 {% block body %}
 <div id="particles">
 	<div class="intro">
-		<h1 id="id_h1" title="{{ nomeSala }}">RX <- offline</h1>
+		<h1 id="id_RX_h1" nomeSala="{{ nomeSala }}" usuario="{{ usuario }}">{{ usuario }} <- offline</h1>
 		<div id="id_div_meter" hidden>
-			<canvas id="meter" width="600" height="15"></canvas>
+			<div class="col s12 m12 l12" id="audios-container" >
+				<ul class="collapsible expandable" id=audios-container-ul></ul>
+			</div>
 		</div>
 	</div>
 	<input type="text" id="sala_id" value="{{ salaId }}" hidden>
 </div>
+{% endblock %}
+
+{% block extrabottomjs %}
+<script src="{% static 'assets/lib/webRTC/js/sala/rx.js' %}"></script>
 {% endblock %}

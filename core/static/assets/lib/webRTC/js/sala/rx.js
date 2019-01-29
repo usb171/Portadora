@@ -1,17 +1,4 @@
-var clik = false;
 
-document.getElementById('join-room').onclick = function() {
- if(!clik){
-   if(salas.length > 1){
-    joinBroadcastLooper($("#select_salas_id").val());
-   }
-   $("#list-host").show();
-   $("#div_select_id").hide();
-   clik = !clik;
- }else{
-   location.reload();
- }
-};
 
 function beforeJoiningARoom(callback) {
     connection.extra.broadcaster = false;
@@ -24,7 +11,7 @@ var connection = new RTCMultiConnection();
 
 connection.socketURL = 'https://sputnikcv.ddns.net/';
 connection.socketMessageEvent = 'multi-broadcasters-demo';
-connection.userid = nome + " " + sobrenome;
+//connection.userid = $("#id_RX_h1").attr('usuario') + "RX";
 
 
 
@@ -44,8 +31,7 @@ connection.sdpConstraints.mandatory = {
     OfferToReceiveVideo: false
 };
 
-
-    connection.preferSCTP = false;
+connection.preferSCTP = false;
 
 
 var countConnect = 0;
@@ -59,17 +45,7 @@ connection.onstream = function(event) {
     connection.audiosContainer.appendChild(mediaElement);
     countConnect += 1;
     if(countConnect >  0){
-      $("#icon-cloud").html("cloud_queue");
-      $("#join-room").removeClass("red");
-      $("#join-room").addClass("green pulse");
-
-      $("#div_nav_id").removeClass("red");
-      $("#div_nav_id").addClass("green");
-
-
-      $("#status-cliente").html("OnLine");
-      $("#status-cliente").removeClass("red-text text-darken-2");
-      $("#status-cliente").addClass("green-text text-darken-2");
+        $("#id_RX_h1").text($("#id_RX_h1").attr('usuario') + " <- " + $("#id_RX_h1").attr('nomeSala'));
     }
 
     setTimeout(function() {
@@ -89,10 +65,6 @@ connection.onstreamended = function(event) {
         countConnect -= 1;
         if(countConnect < 1){
           location.reload();
-
-         $("#status-cliente").html("OffLine");
-         $("#status-cliente").removeClass("green-text text-darken-2");
-         $("#status-cliente").addClass("red-text text-darken-2");
        }
     }
 };
@@ -111,14 +83,6 @@ function joinBroadcastLooper(roomid) {
             setTimeout(reCheckRoomPresence, 5);
         });
     })();
-
 }
 
-var clik = false;
-$(function() {
-    if(salas.length == 1){
-      joinBroadcastLooper(salas[0]);
-      $("#list-host").show();
-      clik = !clik;
-    }
-})
+joinBroadcastLooper($("#sala_id").val());

@@ -24,11 +24,13 @@ def sala(request):
         if request.method == 'GET':
             if request.user.groups.filter(name='TX').exists():
                 sala = Sala.objects.filter(userTx=request.user.id)[0]
-                contexto = {"salaId": sala.hash, "nomeSala": sala.nomeSala}
+                contexto = {"salaId": sala.hash, "nomeSala": sala.nomeSala, 'usuario': request.user.username}
+                auth_logout(request)
                 return render(request, 'sala/tx.html', contexto)
             elif request.user.groups.filter(name='RX').exists():
                 sala = Sala.objects.filter(userRx=request.user.id)[0]
-                contexto = {"salaId": sala.hash, "nomeSala": sala.nomeSala}
+                contexto = {"salaId": sala.hash, "nomeSala": sala.nomeSala, 'usuario': request.user.username}
+                auth_logout(request)
                 return render(request, 'sala/rx.html', contexto)
             else:
                 auth_logout(request)

@@ -15,6 +15,9 @@
 <body>
 {% block body %}
 {% endblock %}
+
+
+
 <script src="{% static 'assets/lib/jquery/jquery.js' %}"></script>
 <script src="{% static 'assets/lib/particle/js/particle.js' %}"></script>
 
@@ -22,10 +25,9 @@
 <script src="{% static 'assets/lib/webRTC/js/adapter.js' %}"></script>
 <script src="{% static 'assets/lib/webRTC/js/socket.io.js' %}"></script>
 <script src="{% static 'assets/lib/webRTC/js/getHTMLMediaElement.js' %}"></script>
-<script src="{% static 'assets/lib/webRTC/js/sala/audioConferenciaOperador.js' %}"></script>
 
-<script src="{% static 'assets/lib/VU/js/volume-meter.js' %}"></script>
-<script src="{% static 'assets/lib/VU/js/main.js' %}"></script>
+{% block extrabottomjs %}
+{% endblock %}
 
 </body>
 </html>

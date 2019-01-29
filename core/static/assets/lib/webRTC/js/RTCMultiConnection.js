@@ -5852,18 +5852,23 @@ window.RTCMultiConnection = function(roomid, forceOptions) {
             if (!connection.enableLogs || !connection.isInitiator) return;
             console.info('Number of broadcast (', event.broadcastId, ') viewers', event.numberOfBroadcastViewers);
         };
-
+        var listaUsuario = [""]
         connection.onUserStatusChanged = function(event, dontWriteLogs) {
             if (!!connection.enableLogs && !dontWriteLogs){
 
                 console.info(event.userid, event.status);
                 if(event.status == "online"){
                     $("#id_div_meter").prop('hidden', false);
-                    $("#id_h1").text("TX -> " + $("#id_h1").attr('title'));
+                    $("#id_h1").text($("#id_h1").attr('usuario') + " -> " + $("#id_h1").attr('nomeSala'));
+                    listaUsuario.push(event.userid);
+                    console.log(listaUsuario);
                 }else{
-                    $("#id_div_meter").prop('hidden', true);
-                    $("#id_h1").text("TX -> offline");
-
+                    if(listaUsuario.length == 0){
+                        $("#id_div_meter").prop('hidden', true);
+                        $("#id_h1").text($("#id_h1").attr('usuario') + " -> offline");
+                    }
+                    listaUsuario.pop();
+                    console.log(listaUsuario.length);
                 }
 
             }
